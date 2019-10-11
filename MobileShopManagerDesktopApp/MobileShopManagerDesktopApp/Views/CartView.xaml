@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="MobileShopManagerDesktopApp.Views.CartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MobileShopManagerDesktopApp.Views"
+             mc:Ignorable="d" 
+             
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:uc="clr-namespace:MobileShopManagerDesktopApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="16"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             x:Name="cartView" HorizontalAlignment="Stretch">
+    <UserControl.Resources>
+        <DataTemplate x:Key="cellListView">
+          
+            <StackPanel Orientation="Horizontal" >
+
+                <Image Source="{Binding Info.PathAvatar}" Width="150" Height="150" Stretch="Uniform"></Image>
+                <StackPanel Width="520"  Margin="10,15,10,0">
+                    <TextBlock Text="{Binding Info.Name}" TextAlignment="Left" FontSize="16">
+                        <TextBlock.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="LightSeaGreen" />
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Resources>
+                        <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <cal:ActionMessage MethodName="ShowSelectedProduct"></cal:ActionMessage>
+                                </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBlock>
+                    <TextBlock Text="Xóa" TextAlignment="Left" Foreground="LightSeaGreen" FontSize="16">
+                        <TextBlock.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Resources>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <cal:ActionMessage MethodName="DeleteProductOrder"></cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                    </TextBlock>
+                </StackPanel>
+                   
+                <StackPanel Width="180"  Margin="10,10,10,0">
+                    <TextBlock Text="{Binding PriceSale, StringFormat='0,0'}"  FontSize="16" TextAlignment="Left" Foreground="Red">đ</TextBlock>
+                    <TextBlock Text="{Binding PriceNotSale, StringFormat='0,0'}"  FontSize="14" TextAlignment="Left" TextDecorations = "Strikethrough"></TextBlock>
+                    <TextBlock Text="{Binding ValueSale}" FontSize="14"  HorizontalAlignment="Left"  Foreground="Red"></TextBlock>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="0,10,0,0">
+                    <materialDesign:Card HorizontalAlignment="Left" Height="35" Width="35"
+                                     FontSize="20" 
+                                     Background="OrangeRed" Margin="8,0,0,0" >
+                        <TextBlock Text="-" Padding="12,4,4,4">
+                            <TextBlock.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Resources>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                <cal:ActionMessage MethodName="SubtractCount"></cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        </TextBlock>
+                    </materialDesign:Card>
+
+                    <TextBox Height="30" Width="30" TextAlignment="Center" IsReadOnly="True" Text="{Binding Count}" Margin="5"></TextBox>
+
+
+                    <materialDesign:Card HorizontalAlignment="Left" Height="35" Width="35"
+                                     FontSize="20" Foreground="White" 
+                                     Background="OrangeRed" Margin="8,0,0,0" >
+                        <TextBlock Text="+" Padding="10,4,4,4">
+                            <TextBlock.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Resources>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                <cal:ActionMessage MethodName="AddCount"></cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        </TextBlock>
+                    </materialDesign:Card>
+                </StackPanel>
+
+
+
+
+
+
+
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="styleListView" TargetType="ListViewItem">
+            <Setter Property="BorderBrush" Value="DarkGray"></Setter>
+            <Setter Property="BorderThickness" Value="0.5"></Setter>
+            <Setter Property="Height" Value="200"></Setter>
+            <Setter Property="Width" Value="auto"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <materialDesign:Card VerticalAlignment="Stretch" >
+                <ListView x:Name="ListProductOrder" BorderBrush="{x:Null}"
+                          ItemTemplate="{StaticResource cellListView}"
+                          ItemContainerStyle="{StaticResource styleListView}"
+                          SelectedItem="{Binding SelectedProductOrder}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel>
+                                
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+               
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Column="1" Margin="5,0,0,0">
+            <materialDesign:Card Width="300" >
+                <StackPanel Margin="10">
+                    <DockPanel Height="60">
+                        <TextBlock Text="Thành tiền: " FontSize="16" VerticalAlignment="Center" ></TextBlock>
+                        <TextBlock Text="{Binding TotalPayment, StringFormat='0,0'}" Width="180" FontSize="24" Foreground="Red" TextAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="đ" Width="10" DockPanel.Dock="Right"  Foreground="Red" VerticalAlignment="Center"></TextBlock>
+                    </DockPanel>
+                    <TextBox x:Name="IdCustomer" materialDesign:HintAssist.Hint="Mã khách hàng" Height="32" FontSize="15" Margin="0,30,0,30"></TextBox>
+                    <Button x:Name="CheckOut" IsDefault="True" BorderBrush="{x:Null}" Background="OrangeRed">Thanh toán</Button>
+                </StackPanel>
+
+            </materialDesign:Card>
+
+
+        </Grid>
+    </Grid>
+</UserControl>

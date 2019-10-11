@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="MobileShopManagerDesktopApp.Views.EmployeeManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MobileShopManagerDesktopApp.Views"
+             mc:Ignorable="d" 
+             
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:uc="clr-namespace:MobileShopManagerDesktopApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="16"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="White"
+             x:Name="employeeView" HorizontalAlignment="Stretch">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="0,12,0,0"></Setter>
+                    <Setter Property="Width" Value="100"></Setter>
+                    <Setter Property="Height" Value="20"></Setter>
+                    <Setter Property="FontSize" Value="16"></Setter>
+                </Style>
+                
+            </Grid.Resources>
+            <materialDesign:Card Grid.Row="0" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10 10" Background="LightGray" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Search" Margin="10 5" VerticalAlignment="Center" FontSize="12" FontFamily="UTM Carviar" />
+                    <Grid>
+                        <Rectangle Margin="0,10" Fill="White" Height="20" Width="160" VerticalAlignment="Center" RadiusY="3" RadiusX="3" HorizontalAlignment="Left">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="3" Color="#FFC9C5C5" ShadowDepth="1"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <TextBox x:Name="SearchStringEmployee"  TextAlignment="Left" Margin="10 5" VerticalAlignment="Center" FontFamily="UTM Carviar"  BorderBrush="{x:Null}"/>
+                    </Grid>
+                    <Button x:Name="SearchEmployee" IsDefault="True" Height="20" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush  ImageSource="/Images/search.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                </StackPanel>
+            </materialDesign:Card>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Button x:Name="AddEmployee" Style="{StaticResource MaterialDesignRaisedButton}" Margin="10,0,0,0"
+                                            Width="87" Content="Thêm"/>
+                <Button x:Name="EditEmployee" Style="{StaticResource MaterialDesignRaisedButton}" Margin="20,0,0,0"
+                                            Width="87" Content="Sửa"/>
+                <Button x:Name="DeleteEmployee" Style="{StaticResource MaterialDesignRaisedButton}" Margin="20,0,0,0"
+                                            Width="87" Content="Xóa"/>
+            </StackPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="5,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="ID:    "></TextBlock>
+                        <TextBlock Text="Họ tên:    "></TextBlock>
+                        <TextBlock Text="Giới tính:    "></TextBlock>
+                        <TextBlock Text="Ngày sinh:    "></TextBlock>
+                        <TextBlock Text="CMND:    "></TextBlock>
+                        <TextBlock Text="Lương:    "></TextBlock>
+                        <TextBlock Text="Điện thoại:    "></TextBlock>
+                        <TextBlock Text="Ngày bắt đầu:    "></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Margin="0,0,0,5">
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Margin" Value="0,10,10,0"></Setter>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBox Text="{Binding SelectedEmployee.Id}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.Name}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.Gender}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.Birthday, StringFormat=dd/MM/yyyy}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.CMND}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.Salary}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.PhoneNumber}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                        <TextBox Text="{Binding SelectedEmployee.DateStarted, StringFormat=dd/MM/yyyy}" BorderBrush="Black"
+                         TextAlignment="Left"  VerticalAlignment="Center" FontFamily="UTM Carviar"/>
+                    </StackPanel>
+                   
+                </Grid>
+            </Grid>
+            
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <StackPanel Margin="5">
+                <materialDesign:Card Margin="5">
+                    <TextBlock Text="Danh sách nhân viên" Background="Orange" FontWeight="Bold" FontSize = "18"></TextBlock>
+                </materialDesign:Card>
+                
+                <materialDesign:Card Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Grid >
+                        <ListView x:Name="ListEmployee"
+                                  SelectedItem="{Binding SelectedEmployee}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                    <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                                    <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding Birthday, StringFormat=dd/MM/yyy}"></GridViewColumn>
+                                    <GridViewColumn Header="CMND" DisplayMemberBinding="{Binding CMND}"></GridViewColumn>
+                                    <GridViewColumn Header="Lương" DisplayMemberBinding="{Binding Salary, StringFormat='0,0'}"></GridViewColumn>
+                                    <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding PhoneNumber}"></GridViewColumn>
+                                    <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding DateStarted, StringFormat=dd/MM/yyy}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+
+                </materialDesign:Card>
+            </StackPanel>
+        </Grid>
+    </Grid>
+    
+</UserControl>
